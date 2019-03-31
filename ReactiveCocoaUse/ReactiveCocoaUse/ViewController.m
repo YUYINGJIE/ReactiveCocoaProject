@@ -8,8 +8,10 @@
 
 #import "ViewController.h"
 #import <ReactiveObjC/ReactiveObjC.h>
-@interface ViewController ()
-
+@interface ViewController ()<UITextFieldDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *testLable;
+@property (weak, nonatomic) IBOutlet UIButton *testButton;
+@property (weak, nonatomic) IBOutlet UITextField *testTextField;
 @end
 
 @implementation ViewController
@@ -23,10 +25,10 @@
  简易用法 及说明
  */
 
+   // [self RACSignalTest];
+   // [self RACSubjectTest];
+
     [self RACSignalTest];
-    [self RACSubjectTest];
-
-
 
 }
 
@@ -296,7 +298,271 @@
 }
 
 
+// 遍历
+-(void)RACSequenceTest{
+    
+    
+    //遍历数组
+    NSArray *racAry = @[@"rac1",@"rac2",@"rac3"];
+    [racAry.rac_sequence.signal subscribeNext:^(id  _Nullable x) {
+        NSLog(@"%@",x);
+    }];
+    //遍历字典
+    NSDictionary *dict = @{@"name":@"dragon",@"type":@"fire",@"age":@"1000"};
+    [dict.rac_sequence.signal subscribeNext:^(id  _Nullable x) {
+        RACTwoTuple *tuple = (RACTwoTuple *)x;
+        NSLog(@"key == %@, value == %@",tuple[0],tuple[1]);
+    }];
+    
+    
+    //再来一个 牛的 常用的。这里的map 可以理解为 附操作
+    // 例子 1
+    RACSignal *signal33 = [[RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+        [subscriber sendNext:dict];
+        [subscriber sendCompleted];
+        return nil;
+    }]map:^id _Nullable(NSDictionary* value) {
+        return [value allKeys];
+    }];
+    
+    [signal33 subscribeNext:^(id  _Nullable x) {
+        NSLog(@"%@",x);
+    }];
+    // 例子 2
+    RACSequence *sequence = [@[@"you",@"are",@"beautiful"] rac_sequence];
+    RACSignal *signal = sequence.signal;
+    RACSignal * capitalizedSignal = [signal map:^id _Nullable(id  _Nullable value) {
+        return [value capitalizedString];
+    }];
+    [signal subscribeNext:^(id  _Nullable x) {
+        NSLog(@"signal----%@",x);
+    }];
+    
+    [capitalizedSignal subscribeNext:^(id  _Nullable x) {
+        NSLog(@"capitalizedSignal----%@",x);
+    }];
+    
+    //
+    NSDictionary *dict1 = @{@"key1":@"value1",@"key2":@"value2"};
+    NSDictionary *dict2 = @{@"key3":@"value3",@"key4":@"value4"};
+    NSArray *dictArr = @[dict1,dict2];
+    [dictArr.rac_sequence.signal subscribeNext:^(id x) {
+        NSLog(@"x:%@,type:%s",x,object_getClassName(x));
+    }];
+}
 
+
+
+-(void)rac_textSignalTest{
+    
+    //监听文本框的改变直到当前对象被销毁  takeUntil 直到某个信号来临结束
+    [[self.testTextField.rac_textSignal takeUntil:self.rac_willDeallocSignal]subscribeNext:^(NSString * _Nullable x) {
+        
+    }];
+    // take 与 skip 正好 相反
+    // skip跳过几个信号,不接受 表示输入第一次，不会被监听到，跳过第一次发出的信号
+    [[self.testTextField.rac_textSignal skip:1] subscribeNext:^(id x) {
+        
+        NSLog(@"%@",x);
+    }];
+    
+    //事件绑定
+    [[self.testButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        _testLable.text = @"123";
+        NSLog(@"RAC按钮点击了");
+        NSLog(@"%@",x);
+    }];
+    //rac_signalForControlEvents 事件
+    // rac_gestureSignal 手势
+    // rac_signalForSelector fromProtocol 代理
+   
+    // KVO
+    [RACObserve(self.testLable, text) subscribeNext:^(id  _Nullable x) {
+        NSLog(@"-------%@",x); //这里会先执行一次
+    }];
+    self.testLable.text=@"dddd";
+    
+    //代理
+    [[self rac_signalForSelector:@selector(textFieldShouldBeginEditing:)fromProtocol:@protocol(UITextFieldDelegate)]subscribeNext:^(RACTuple * _Nullable x) {
+        NSLog(@"textField delegate == %@",x);
+    }];
+    self.testTextField.delegate = self;
+    
+    //通知
+    [[[NSNotificationCenter defaultCenter]rac_addObserverForName:UIKeyboardDidHideNotification object:nil]subscribeNext:^(NSNotification * _Nullable x) {
+        NSLog(@"---00--%@",x);
+    }];
+    
+    
+}
+
+
+
+/**
+ RACCommand 也是信号
+ 创建 RACCommand 要求我们返回一个信号 不能为空 否则会 报错
+ 使用如下
+ 
+ 
+ */
+-(void)RACCommandtest{
+
+    //    RACCommand *command = [[RACCommand alloc]initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
+    //        NSLog(@"--%@-",input);
+    //     return    [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+    //
+    //         [subscriber sendNext:@"ddddd"];
+    //         return nil;
+    //        }];
+    //
+    //        //返回的信号不能为空
+    //    }];
+    //  RACSignal*signal = [command execute:@"开始飞起来"];
+    //    [signal subscribeNext:^(id  _Nullable x) {
+    //        NSLog(@"--接收到的数据%@-",x);
+    //    }];
+    //
+    //    //---------------------------
+    //    [command.executionSignals subscribeNext:^(id  _Nullable x) {
+    //
+    //        [x subscribeNext:^(id  _Nullable x) {
+    //            NSLog(@"--这里%@-",x);
+    //        }];
+    //        NSLog(@"--接收到的数据%@-",x);
+    //    }];
+    //    [command execute:@"ddd"];
+    
+    
+    //-------------------------------
+    //switchToLatest表示的是最新发送的信号
+    
+    RACCommand *command = [[RACCommand alloc]initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
+        
+        return [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+            [subscriber sendNext:@"6666"];
+            [subscriber sendNext:@"2222"];
+            [subscriber sendNext:@"3333"];
+            // [subscriber sendCompleted];
+            return nil;
+        }];
+    }];
+    [[[command.executionSignals.switchToLatest deliverOnMainThread]skip:2] subscribeNext:^(id  _Nullable x) {
+        NSLog(@"--%@-",x);
+    }];
+    [command execute:@"11"];
+
+
+}
+
+// 过滤
+-(void)RACfilter{
+    
+    @weakify (self);
+    [[self.testTextField.rac_textSignal filter:^BOOL(NSString * _Nullable value) {
+        @strongify(self);
+        if (self.testTextField.text.length >= 6) {
+            self.testTextField.text = [self.testTextField.text substringToIndex:6];
+            self.testLable.text = @"已经到6位了";
+            self.testLable.textColor = [UIColor redColor];
+        }
+        return value.length <= 6;
+    }]subscribeNext:^(NSString * _Nullable x) {
+        //订阅逻辑区域
+        NSLog(@"filter过滤后的订阅内容：%@",x);
+    }] ;
+}
+// 过滤 忽视
+- (void)ignoreValue
+{
+    [[self.testTextField.rac_textSignal ignoreValues] subscribeNext:^(id  _Nullable x) {
+        //将self.testTextField的所有textSignal全部过滤掉
+        NSLog(@"ignoreValues过滤后的订阅内容：%@",x);
+        
+    }];
+    
+    [[self.testTextField.rac_textSignal ignore:@"2"] subscribeNext:^(id  _Nullable x) {
+        NSLog(@"ignoreValues过滤后的订阅内容：%@",x);
+        
+        //将self.testTextField的textSignal中字符串为指定条件的信号过滤掉
+    }];
+}
+
+// 重复信号的过滤
+- (void)distinctUntilChanged
+{
+    RACSubject *subject = [RACSubject subject];
+    [[subject distinctUntilChanged] subscribeNext:^(id  _Nullable x) {
+        NSLog(@"%@",x);
+    }];
+    //take:从开始一共取N次的信号
+    [[subject take:1]subscribeNext:^(id  _Nullable x) {
+        NSLog(@"%@",x);
+    }];
+    //takeLast:取最后N次的信号 订阅者必须调用完成
+    [[subject takeLast:1] subscribeNext:^(id x) {
+        
+        NSLog(@"%@",x);
+    }];
+    [subject sendNext:@1111];
+    [subject sendNext:@2222];
+    [subject sendNext:@2222];
+    [subject sendNext:@2223];
+    [subject sendNext:@2224];
+    [subject sendCompleted];
+}
+
+
+
+
+/**
+ 用GCD的信号量来实现异步线程同步操作
+ */
+-(void)gcdtestone{
+    
+    dispatch_semaphore_t sem = dispatch_semaphore_create(0);
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSLog(@"--11--%@",[NSThread currentThread]);
+        dispatch_semaphore_signal(sem);
+    });
+    dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSLog(@"--22--%@",[NSThread currentThread]);
+        dispatch_semaphore_signal(sem);
+    });
+    dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSLog(@"--33--%@",[NSThread currentThread]);
+        dispatch_semaphore_signal(sem);
+    });
+}
+
+-(void)gcdsignalgrup{
+    
+    dispatch_group_t grup =dispatch_group_create();
+    dispatch_queue_t queue = dispatch_queue_create("concurrent", DISPATCH_QUEUE_CONCURRENT);
+    dispatch_group_async(grup, queue, ^{
+        dispatch_semaphore_t semaphore =dispatch_semaphore_create(0);
+        NSLog(@"task1 begin : %@",[NSThread currentThread]);
+
+        dispatch_async(queue, ^{
+            NSLog(@"task1 finish : %@",[NSThread currentThread]);
+            dispatch_semaphore_signal(semaphore);
+        });
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    });
+    dispatch_group_async(grup, queue, ^{
+        dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+        NSLog(@"task2 begin : %@",[NSThread currentThread]);
+        dispatch_async(queue, ^{
+            NSLog(@"task2 finish : %@",[NSThread currentThread]);
+            dispatch_semaphore_signal(sema);
+        });
+        dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    });
+    dispatch_group_notify(grup, dispatch_get_main_queue(), ^{
+        NSLog(@"refresh UI");
+    });
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
