@@ -10,7 +10,7 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 ////////////////////123456 /////
 
-@property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) UIWindow *window;//
 
 // 我提交了很多的代码
 ///////////////
@@ -18,5 +18,4 @@
 
 /////////yyj、、、、///////////
 //////////
-////
 //////////
