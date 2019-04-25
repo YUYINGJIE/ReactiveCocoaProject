@@ -11,6 +11,7 @@
 		3F39CFB822506131004FDD05 /* YJViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F39CFB722506131004FDD05 /* YJViewController.m */; };
 		3F39CFBB22506199004FDD05 /* YJLoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F39CFBA22506199004FDD05 /* YJLoginModel.m */; };
 		3F39CFBE225061AE004FDD05 /* YJLoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F39CFBD225061AE004FDD05 /* YJLoginViewModel.m */; };
+		3F4752292271FA2500684281 /* cc.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F4752282271FA2500684281 /* cc.m */; };
 		3F50B3A6224FCE4300E4E222 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F50B3A5224FCE4300E4E222 /* AppDelegate.m */; };
 		3F50B3A9224FCE4300E4E222 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F50B3A8224FCE4300E4E222 /* ViewController.m */; };
 		3F50B3AC224FCE4300E4E222 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F50B3AA224FCE4300E4E222 /* Main.storyboard */; };
@@ -49,6 +50,8 @@
 		3F39CFBA22506199004FDD05 /* YJLoginModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YJLoginModel.m; sourceTree = "<group>"; };
 		3F39CFBC225061AE004FDD05 /* YJLoginViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YJLoginViewModel.h; sourceTree = "<group>"; };
 		3F39CFBD225061AE004FDD05 /* YJLoginViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YJLoginViewModel.m; sourceTree = "<group>"; };
+		3F4752272271FA2500684281 /* cc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cc.h; sourceTree = "<group>"; };
+		3F4752282271FA2500684281 /* cc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cc.m; sourceTree = "<group>"; };
 		3F50B3A1224FCE4300E4E222 /* ReactiveCocoaUse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReactiveCocoaUse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F50B3A4224FCE4300E4E222 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3F50B3A5224FCE4300E4E222 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -137,6 +140,8 @@
 				3F39CFBA22506199004FDD05 /* YJLoginModel.m */,
 				3F39CFBC225061AE004FDD05 /* YJLoginViewModel.h */,
 				3F39CFBD225061AE004FDD05 /* YJLoginViewModel.m */,
+				3F4752272271FA2500684281 /* cc.h */,
+				3F4752282271FA2500684281 /* cc.m */,
 				3F50B3AA224FCE4300E4E222 /* Main.storyboard */,
 				3F50B3AD224FCE4300E4E222 /* Assets.xcassets */,
 				3F50B3AF224FCE4300E4E222 /* LaunchScreen.storyboard */,
@@ -381,6 +386,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F50B3A9224FCE4300E4E222 /* ViewController.m in Sources */,
+				3F4752292271FA2500684281 /* cc.m in Sources */,
 				3F39CFBB22506199004FDD05 /* YJLoginModel.m in Sources */,
 				3F50B3B4224FCE4300E4E222 /* main.m in Sources */,
 				3F39CFBE225061AE004FDD05 /* YJLoginViewModel.m in Sources */,
