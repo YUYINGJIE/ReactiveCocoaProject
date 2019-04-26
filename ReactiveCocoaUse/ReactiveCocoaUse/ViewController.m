@@ -536,6 +536,7 @@
     });
 }
 // 第一次提交
+//第二次提交
 -(void)gcdsignalgrup{
     
     dispatch_group_t grup =dispatch_group_create();
