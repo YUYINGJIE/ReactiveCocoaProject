@@ -535,7 +535,7 @@
         dispatch_semaphore_signal(sem);
     });
 }
-
+// 第一次提交
 -(void)gcdsignalgrup{
     
     dispatch_group_t grup =dispatch_group_create();
