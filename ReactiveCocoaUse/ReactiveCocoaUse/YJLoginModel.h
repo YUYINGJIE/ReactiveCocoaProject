@@ -12,3 +12,5 @@
 @property(nonatomic,copy)NSString*userNum;
 @property(nonatomic,copy)NSString*userPsw;
 @end
+///
+///
