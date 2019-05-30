@@ -5,7 +5,7 @@
 //  Created by 于英杰 on 2019/3/31.
 //  Copyright © 2019 YYJ. All rights reserved.
 //
-//////////////////////////////////////////////本地a1合并a2了//
+////////////////////////////////////////////////////本地a1合并a2了//
 #import "ViewController.h"
 #import <ReactiveObjC/ReactiveObjC.h>
 @interface ViewController ()<UITextFieldDelegate>
@@ -538,6 +538,7 @@
 
 // 第一次提交
 //第二次提交
+//第三次提交
 -(void)gcdsignalgrup{
     
     dispatch_group_t grup =dispatch_group_create();
