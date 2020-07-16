@@ -7,13 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-//////////
+
 @interface ViewController : UIViewController
-//123456654
-/////////////////////
+
 @end
-/////////////////////////////////
-
-
-/// yyyjj
-////////////////
+//111
