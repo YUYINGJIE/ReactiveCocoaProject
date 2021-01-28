@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-//
+//第一次调试
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
