@@ -6,8 +6,10 @@
 //  Copyright © 2019 YYJ. All rights reserved.
 //
 ////////////////////////////////////////////////////本地a1合并a2了//
+
 #import "ViewController.h"
 #import <ReactiveObjC/ReactiveObjC.h>
+//#import "NR_YJWeboffLineTools.h"
 @interface ViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *testLable;
 @property (weak, nonatomic) IBOutlet UIButton *testButton;
@@ -28,8 +30,8 @@
    // [self RACSignalTest];
    // [self RACSubjectTest];
 
-    [self RACSignalTest];
-
+   // [self RACSignalTest];
+//    [[NR_YJWeboffLineTools WeboffLineToolsshared]saveFiel];
 }
 
 /**
@@ -435,7 +437,7 @@
     
     //-------------------------------
     //switchToLatest表示的是最新发送的信号
-    
+                                               
     RACCommand *command = [[RACCommand alloc]initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
         
         return [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {

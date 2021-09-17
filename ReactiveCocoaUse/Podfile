@@ -8,8 +8,10 @@ target 'ReactiveCocoaUse' do
   # Pods for ReactiveCocoaUse
 
   pod 'ReactiveObjC', '~> 3.1.0'
-  pod 'MBProgressHUD'
+  pod 'MJRefresh', '~> 3.5.0'
 
+  pod 'MBProgressHUD'
+  pod 'SSZipArchive', '~> 2.1.4'
   target 'ReactiveCocoaUseTests' do
     inherit! :search_paths
     # Pods for testing
