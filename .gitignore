@@ -46,7 +46,7 @@ DerivedData/
 Pods
 !Podfile
 !Podfile.lock
-
+!ReactiveObjC/
 .DS_Store
 .idea/
 
