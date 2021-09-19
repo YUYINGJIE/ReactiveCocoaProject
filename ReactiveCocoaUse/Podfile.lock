@@ -1,0 +1,20 @@
+PODS:
+  - MBProgressHUD (1.2.0)
+  - ReactiveObjC (3.1.1)
+
+DEPENDENCIES:
+  - MBProgressHUD
+  - ReactiveObjC (~> 3.1.0)
+
+SPEC REPOS:
+  trunk:
+    - MBProgressHUD
+    - ReactiveObjC
+
+SPEC CHECKSUMS:
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
+  ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
+
+PODFILE CHECKSUM: 273494cc06d4f9a0b37a2bb9e9b88c30a8f86939
+
+COCOAPODS: 1.8.4
