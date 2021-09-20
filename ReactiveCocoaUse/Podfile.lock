@@ -1,20 +1,28 @@
 PODS:
-  - MBProgressHUD (1.2.0)
+  - NIMSDK (7.2.5)
+  - QYSDK (5.12.0)
   - ReactiveObjC (3.1.1)
 
 DEPENDENCIES:
-  - MBProgressHUD
+  - NIMSDK (from `./frameworks/NIMSDK`)
+  - QYSDK (from `./frameworks/QYSDK`)
   - ReactiveObjC (~> 3.1.0)
 
 SPEC REPOS:
   trunk:
-    - MBProgressHUD
     - ReactiveObjC
 
+EXTERNAL SOURCES:
+  NIMSDK:
+    :path: "./frameworks/NIMSDK"
+  QYSDK:
+    :path: "./frameworks/QYSDK"
+
 SPEC CHECKSUMS:
-  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
+  NIMSDK: c90cf4817219a505230dab92c31fd9d1c697684a
+  QYSDK: 555f751a06c771392e20a8745cdc975d91330883
   ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
 
-PODFILE CHECKSUM: 273494cc06d4f9a0b37a2bb9e9b88c30a8f86939
+PODFILE CHECKSUM: 850a42b563844f7c22757be7d4abe3110a34ef22
 
 COCOAPODS: 1.8.4

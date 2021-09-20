@@ -7,7 +7,7 @@
 //
 #import "YJViewController.h"
 #import "YJLoginViewModel.h"
-#import <MBProgressHUD.h>
+//#import <MBProgressHUD.h>
 @interface YJViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *LoginBtn;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextfield;
@@ -58,10 +58,10 @@
     [self.LoginViewmodel.loginConmand.executing subscribeNext:^(NSNumber * _Nullable x) {
         @strongify(self)
         if ([x isEqualToNumber:@1]) {
-            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+           // [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         }
         else{
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+          //  [MBProgressHUD hideHUDForView:self.view animated:YES];
         }
     }];
 //
